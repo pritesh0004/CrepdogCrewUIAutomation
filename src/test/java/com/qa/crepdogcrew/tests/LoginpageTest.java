@@ -6,6 +6,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.crepdogcrew.base.BaseTest;
+import com.qa.crepdogcrew.utils.CsvUtil;
+import com.qa.crepdogcrew.utils.ExcelUtil;
 
 public class LoginpageTest extends BaseTest {
 
@@ -30,8 +32,18 @@ public class LoginpageTest extends BaseTest {
 	public Object[][] setOfEmailAddress() {
 		return new Object[][] { { "pritesh01@gma!l.com" }, { "pritesh02@gma!l.com" } };
 	}
+	
+	@DataProvider
+	public Object[][] getEmailAddressFromCSV() {
+		return CsvUtil.csvData("csvEmailData");
+	}
+	
+	@DataProvider
+	public Object[][] getEmailAddressFromExcel() {
+		return ExcelUtil.getTestData("Email");
+	}
 
-	@Test(dataProvider = "setOfEmailAddress")
+	@Test(dataProvider = "getEmailAddressFromExcel")
 	public void isCrepdogCrewDigninEmailFieldErrorMessageCorrectTest(String emailAddress) {
 		String actualError = loginPage.isCrepdogCrewDigninEmailFieldErrorMessageCorrect(emailAddress);
 		Assert.assertEquals(actualError, "Enter a valid email address");
