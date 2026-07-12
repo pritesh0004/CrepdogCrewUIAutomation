@@ -1,5 +1,7 @@
 package com.qa.crepdogcrew.base;
 
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -14,11 +16,13 @@ public class BaseTest {
 	DriverFactory df;
 	protected HomePage homePage;
 	protected LoginPage loginPage;
+	public Properties prop;
 
 	@BeforeTest
 	public void setUp() {
 		df = new DriverFactory();
-		driver = df.initDriver("chrome");
+		prop = df.init_properties();
+		driver = df.initDriver(prop);
 		homePage = new HomePage(driver);
 
 	}
