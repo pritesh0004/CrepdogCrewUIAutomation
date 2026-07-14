@@ -3,6 +3,8 @@ package com.qa.crepdogcrew.base;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
@@ -24,11 +26,11 @@ public class BaseTest {
 	public Properties prop;
 
 	@BeforeTest
-	@Parameters({"browser"})
+	@Parameters({ "browser" })
 	public void setUp(@Optional String browserName) {
 		df = new DriverFactory();
 		prop = df.init_properties();
-		if(browserName!= null) {
+		if (browserName != null) {
 			prop.setProperty("browser", browserName);
 		}
 		driver = df.initDriver(prop);
@@ -40,6 +42,15 @@ public class BaseTest {
 	public void tearDown() {
 		driver.quit();
 
+	}
+
+	/*
+	 * Take the screenshot of failed test case and attach to the chaintest report
+	 */
+	@AfterMethod
+	public void attachScreenshotToChainTestReport(ITestResult result) {
+		if(!result.isSuccess())
+		ChainTestListener.embed(df.takeScreenshotFile(), "image/png");
 	}
 
 }
