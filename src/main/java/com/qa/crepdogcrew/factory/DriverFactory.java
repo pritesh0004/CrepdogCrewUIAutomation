@@ -16,40 +16,49 @@ public class DriverFactory {
 
 	public WebDriver driver;
 	public Properties prop;
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 
 	public WebDriver initDriver(Properties prop) {
 		String browserName = prop.getProperty("browser");
 		System.out.println("Browser Name is : "+browserName);
 		switch (browserName) {
 		case "chrome": {
-			driver = new ChromeDriver();
+			//driver = new ChromeDriver();
+			tlDriver.set(new ChromeDriver());
 			break;
 		}
 		case "firefox": {
-			driver = new FirefoxDriver();
+			//driver = new FirefoxDriver();
+			tlDriver.set(new FirefoxDriver());
 			break;
 		}
 		case "edge": {
-			driver = new EdgeDriver();
+			//driver = new EdgeDriver();
+			tlDriver.set(new EdgeDriver());
 			break;
 		}
 		case "safari": {
-			driver = new SafariDriver();
+			//driver = new SafariDriver();
+			tlDriver.set(new SafariDriver());
 			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + browserName);
 		}
-		driver.get(prop.getProperty("url"));
-		driver.manage().window().maximize();
-		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-		return driver;
+		getDriver().get(prop.getProperty("url"));
+		getDriver().manage().window().maximize();
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		return getDriver();
 
 	}
 	
+	public static WebDriver getDriver() {
+		return tlDriver.get();
+	}
+	
 	public Properties init_properties() {
-		
+
 		prop = new Properties();
 		try {
 			FileInputStream ip = new FileInputStream("./src/test/resources/config/config.properties");
@@ -62,7 +71,7 @@ public class DriverFactory {
 			e.printStackTrace();
 		}
 		return prop;
-		
+
 	}
 
 }
