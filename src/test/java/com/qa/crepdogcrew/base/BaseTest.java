@@ -5,13 +5,16 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import com.aventstack.chaintest.plugins.ChainTestListener;
 import com.qa.crepdogcrew.factory.DriverFactory;
 import com.qa.crepdogcrew.pages.HomePage;
 import com.qa.crepdogcrew.pages.LoginPage;
 
+@Listeners(ChainTestListener.class)
 public class BaseTest {
 
 	public WebDriver driver;

@@ -54,6 +54,14 @@
 			<version>5.10</version>
 		</dependency>
 
+		<!--
+		Source:https://mvnrepository.com/artifact/com.aventstack/chaintest-testng -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>chaintest-testng</artifactId>
+			<version>1.0.12</version>
+		</dependency>
+
 
 	</dependencies>
 
