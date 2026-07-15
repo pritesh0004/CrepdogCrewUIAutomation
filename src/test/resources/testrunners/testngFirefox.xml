@@ -4,6 +4,11 @@
 <suite name="CrepdogCrew App Test Regression Suite" verbose="4"
 	thread-count="2" parallel="tests">
 	
+	<listeners>
+		<listener class-name="com.aventstack.chaintest.plugins.ChainTestListener" />
+		<listener class-name="com.qa.CrepdogCrewUIAutomation.listeners.TestAllureListener" />
+	</listeners>
+	
 	<test name="Home Page Test_firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>

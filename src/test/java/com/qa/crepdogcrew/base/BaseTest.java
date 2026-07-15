@@ -16,7 +16,7 @@ import com.qa.crepdogcrew.factory.DriverFactory;
 import com.qa.crepdogcrew.pages.HomePage;
 import com.qa.crepdogcrew.pages.LoginPage;
 
-@Listeners(ChainTestListener.class)
+//@Listeners(ChainTestListener.class)
 public class BaseTest {
 
 	public WebDriver driver;
