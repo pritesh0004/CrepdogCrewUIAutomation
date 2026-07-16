@@ -7,6 +7,7 @@
 	<listeners>
 		<listener class-name="com.aventstack.chaintest.plugins.ChainTestListener" />
 		<listener class-name="com.qa.crepdogcrew.listeners.TestAllureListener" />
+		<listener class-name="com.qa.crepdogcrew.listeners.AnnotationTransformer" />
 	</listeners>
 	
 	<test name="Home Page Test_chrome">
@@ -16,12 +17,12 @@
 		</classes>
 	</test>
 	
-	  <test name="Login Page Test_chrome">
+	   <test name="Login Page Test_chrome">
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.qa.crepdogcrew.tests.LoginpageTest" />
 		</classes>
-	</test>  
+	</test>   
 
 
 </suite>	
