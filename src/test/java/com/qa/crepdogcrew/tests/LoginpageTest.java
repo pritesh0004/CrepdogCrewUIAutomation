@@ -1,5 +1,7 @@
 package com.qa.crepdogcrew.tests;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -22,6 +24,8 @@ import io.qameta.allure.Story;
 @Feature("Test Sign In Functionality")
 @Story("Test Sign In Title , Header and Email Field")
 public class LoginpageTest extends BaseTest {
+	
+	private static final Logger log = LogManager.getLogger(LoginpageTest.class);
 
 	@BeforeClass
 	public void prerequisitesOfSigninPage() {
@@ -33,8 +37,10 @@ public class LoginpageTest extends BaseTest {
 	@Severity(SeverityLevel.MINOR)
 	@Test
 	public void isCorrectCrepdogCrewSigninTitleTest() {
+		log.info("Starting Loginpage Title Test");
 		String actualTitle = loginPage.isCorrectCrepdogCrewDigninTitle();
 		Assert.assertEquals(actualTitle, "Sign in - Crepdog Crew");
+		log.info("Loginpage Title Test Passed");
 	}
 
 	@Description("Valiate Sign In Header Test")
@@ -42,8 +48,10 @@ public class LoginpageTest extends BaseTest {
 	@Severity(SeverityLevel.MINOR)
 	@Test
 	public void isCorrectCrepdogCrewLoginHeaderTest() {
+		log.info("Starting Loginpage Header Test");
 		boolean flag = loginPage.isCorrectCrepdogCrewLoginHeader();
 		Assert.assertTrue(flag);
+		log.info("Loginpage Header Test Passed");
 	}
 
 	@DataProvider
@@ -66,8 +74,10 @@ public class LoginpageTest extends BaseTest {
 	@Severity(SeverityLevel.MINOR)
 	@Test(dataProvider = "getEmailAddressFromExcel")
 	public void isCrepdogCrewDigninEmailFieldErrorMessageCorrectTest(String emailAddress) {
+		log.info("Starting Loginpage Email Field Error Validation Test");
 		String actualError = loginPage.isCrepdogCrewDigninEmailFieldErrorMessageCorrect(emailAddress);
 		Assert.assertEquals(actualError, "Enter a valid email address");
+		log.info("Loginpage Email Field Error Validation Test Passed");
 	}
 
 }

@@ -9,6 +9,7 @@ public class HomePage {
 
 	private final By crepdogCrewDashboardLogo = By.cssSelector("img.header__logo-image");
 	private final By crepdogCrewDashboardSignIn = By.xpath("//a[@class='tap-area sm:block']");
+	
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -29,3 +30,6 @@ public class HomePage {
 	}
 
 }
+
+
+
