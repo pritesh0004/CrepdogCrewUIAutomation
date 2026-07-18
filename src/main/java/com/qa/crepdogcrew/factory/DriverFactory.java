@@ -20,24 +20,26 @@ public class DriverFactory {
 	public WebDriver driver;
 	public Properties prop;
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+	public OptionsManager optionsManager;
 
 	public WebDriver initDriver(Properties prop) {
 		String browserName = prop.getProperty("browser");
+		optionsManager = new OptionsManager(prop);
 		System.out.println("Browser Name is : "+browserName);
 		switch (browserName) {
 		case "chrome": {
 			//driver = new ChromeDriver();
-			tlDriver.set(new ChromeDriver());
+			tlDriver.set(new ChromeDriver(optionsManager.chromeOptions()));
 			break;
 		}
 		case "firefox": {
 			//driver = new FirefoxDriver();
-			tlDriver.set(new FirefoxDriver());
+			tlDriver.set(new FirefoxDriver(optionsManager.firefoxOptions()));
 			break;
 		}
 		case "edge": {
 			//driver = new EdgeDriver();
-			tlDriver.set(new EdgeDriver());
+			tlDriver.set(new EdgeDriver(optionsManager.edgeOptions()));
 			break;
 		}
 		case "safari": {
@@ -49,7 +51,7 @@ public class DriverFactory {
 			throw new IllegalArgumentException("Unexpected value: " + browserName);
 		}
 		getDriver().get(prop.getProperty("url"));
-		getDriver().manage().window().maximize();
+		//getDriver().manage().window().maximize();
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
 		return getDriver();
