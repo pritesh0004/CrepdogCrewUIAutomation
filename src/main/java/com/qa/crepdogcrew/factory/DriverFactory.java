@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +23,9 @@ public class DriverFactory {
 	public Properties prop;
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 	public OptionsManager optionsManager;
+	public FileInputStream ip;
+	private static final Logger log = LogManager.getLogger(DriverFactory.class);
+
 
 	public WebDriver initDriver(Properties prop) {
 		String browserName = prop.getProperty("browser");
@@ -63,18 +68,36 @@ public class DriverFactory {
 	}
 	
 	public Properties init_properties() {
-
 		prop = new Properties();
+		String envName = System.getProperty("Environment");
 		try {
-			FileInputStream ip = new FileInputStream("./src/test/resources/config/config.properties");
-			try {
-				prop.load(ip);
-			} catch (IOException e) {
-				e.printStackTrace();
+        if(envName==null) {
+        	 ip = new FileInputStream("./src/test/resources/config/config.properties");
+        }
+        else {
+        	switch (envName.trim().toLowerCase()){
+			case "qa": {
+				 ip = new FileInputStream("./src/test/resources/config/configQA.properties");
+				 break;
 			}
-		} catch (FileNotFoundException e) {
+			case "stage": {
+				 ip = new FileInputStream("./src/test/resources/config/configStage.properties");
+				 break;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + envName.trim().toLowerCase());
+			}
+        }
+		}
+		catch (Exception e) {
+		    log.error("Unable to load configuration file", e);
+		}
+		try {
+			prop.load(ip);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return prop;
 
 	}
