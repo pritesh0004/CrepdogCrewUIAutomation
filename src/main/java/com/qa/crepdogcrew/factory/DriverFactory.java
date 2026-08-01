@@ -56,7 +56,7 @@ public class DriverFactory {
 			throw new IllegalArgumentException("Unexpected value: " + browserName);
 		}
 		getDriver().get(prop.getProperty("url"));
-		//getDriver().manage().window().maximize();
+		getDriver().manage().window().maximize();
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
 		return getDriver();
