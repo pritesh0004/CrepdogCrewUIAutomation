@@ -30,7 +30,7 @@ public class HomepageTest extends BaseTest{
 		log.info("Starting Homepage Logo Test");
 		boolean flag = homePage.isCrepdogCrewDashboardLogoDisplayed();
 		Assert.assertTrue(flag);
-		log.info("Homepage Logo Test Passed");
+		log.info("Homepage Logo Test Passed.");
 	}
 
 	@Description("Valiate Homepage Title Test")
